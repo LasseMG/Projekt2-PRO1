@@ -10,9 +10,9 @@ public class MultipleChoiceTest {
         char[] studentAnswers = new char[numberOfQuestions];
 
         for (int i = 0; i < studentAnswers.length; i++) {
-            Random r = new Random();
-            char c = (char) (r.nextInt(4) + 'A');
-            studentAnswers[i] = c;
+            Random r = new Random(); //Værktøj til at lave random tal
+            char c = (char) (r.nextInt(4) + 'A'); //Random fra 1-4, bogstav typen, op til 4
+            studentAnswers[i] = c; //Det random svar på spg i er c
         }
         return studentAnswers;
     }

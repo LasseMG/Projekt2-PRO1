@@ -8,7 +8,7 @@ public class Student {
     private boolean active;
     private int[] grades;
     private ArrayList<Team> studentArrayList;
-    private char[] studentAnswers;
+    private static char[] studentAnswers;
 
     private double gradeAverage;
 
@@ -24,6 +24,10 @@ public class Student {
     }
 
     //Getters
+
+    public char[] getStudentAnswers() {
+        return studentAnswers;
+    }
 
     public int getCorrectAnswers() {
         return correctAnswers;
@@ -41,6 +45,8 @@ public class Student {
         return active;
     }
 
+
+
     //Metoder
 
     //Den højeste karakter
@@ -56,10 +62,9 @@ public class Student {
 
     //Gennemsnit af grades
     public double averageGradeCalc(int[] grades) {
-        double gradeAverage = 0;
 
         for (int grade : grades) {
-            gradeAverage += grade;
+            this.gradeAverage += grade;
         }
         gradeAverage /= grades.length;
         return gradeAverage;
@@ -82,12 +87,11 @@ public class Student {
         return correctAnswersNumber;
     }
 
-
     //ToString
     @Override
     public String toString() {
         return "Student: name: " + name + ", " + "active: " + active + ", grades: " + Arrays.toString(grades)
                 + " average grade: " + averageGradeCalc(grades) + " test answers: "
-                + Arrays.toString(studentAnswers) + " correct answers: " + correctAnswersCount(studentAnswers);
+                + Arrays.toString(studentAnswers) + " correct answers: " + correctAnswersCount(studentAnswers) + "Team: ";
     }
 }

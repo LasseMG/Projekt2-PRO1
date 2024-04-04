@@ -50,5 +50,17 @@ public class App {
         System.out.println("Teams: ");
         System.out.println(team1);
         System.out.println(team2);
+        System.out.println();
+
+        //2.7: Kolonner med info
+        System.out.println("Student information table: ");
+        team1.printStudentRows();
+        team2.printStudentRows();
+        System.out.println();
+
+        //2.8 Svarfordeling
+        System.out.println("Svarfordeling: ");
+        team1.printAnswerChecker();
+
     }
 }

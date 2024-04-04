@@ -1,6 +1,6 @@
 package Opgave1;
 
-import java.lang.reflect.Array;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,12 +22,42 @@ public class Team {
         this.correctAnswersList = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<Student> getStudents() {
         return studentArrayList;
     }
 
     public ArrayList<Student> getActiveStudentsList() {
         return activeStudentsList;
+    }
+
+    //Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public void setStudentArrayList(ArrayList<Student> studentArrayList) {
+        this.studentArrayList = studentArrayList;
+    }
+
+    public void setActiveStudentsList(ArrayList<Student> activeStudentsList) {
+        this.activeStudentsList = activeStudentsList;
+    }
+
+    public void setHighScoreStudentsList(ArrayList<Student> highScoreStudentsList) {
+        this.highScoreStudentsList = highScoreStudentsList;
+    }
+
+    public void setCorrectAnswersList(ArrayList<Student> correctAnswersList) {
+        this.correctAnswersList = correctAnswersList;
     }
 
 //Metoder
@@ -106,6 +136,60 @@ public class Team {
         return correctAnswersList;
     }
 
+    //Lav arrays, og gem som feltvariabel
+    public ArrayList<String> studentToArray() {
+        ArrayList<String> studentRows = new ArrayList<>(); //Lav nyt array til strings
+
+        for (Student student : studentArrayList) {
+            String studentRow = String.format("%-20s %-15.1f %-10d", student.getName(), student.getGradeAverage(), student.getCorrectAnswers()); //Lav en string til array + formater
+            studentRows.add(studentRow); //Tilføj til array
+        }
+        return studentRows;
+    }
+
+    //Print arrays metode
+    public void printStudentRows() {
+        ArrayList<String> studentRows = studentToArray();
+        System.out.printf("%-15s %-15s %-15s\n", "Name", "Grade average", "Correct answers");
+        System.out.println("---------------------------------------------------------------");
+
+        for (String studentRow : studentRows) {
+            System.out.println(studentRow);
+        }
+    }
+
+    public int[] answerChecker() {
+
+        char[] correctAnswers = MultipleChoiceTest.getCorrectAnswers();
+        int[] correctAnswerCounter = new int[correctAnswers.length];
+
+        for (int i = 0; i < correctAnswers.length; i++) {
+            int counter = 0;
+            for (Student student : studentArrayList) {
+                if (student.getStudentAnswers()[i] == correctAnswers[i]) {
+                    counter++;
+                }
+            }
+            correctAnswerCounter[i] = counter;
+        }
+        return correctAnswerCounter;
+    }
+
+    public void printAnswerChecker() {
+        int[] correctAnswerdQuestArray = answerChecker();
+
+
+        System.out.println("---------------------------------");
+        System.out.println("Spg. nr: \tKorrekte svar: ");
+
+        for (int i = 0; i < correctAnswerdQuestArray.length; i++) {
+
+            if (i < correctAnswerdQuestArray.length) {
+                System.out.printf("%d\t\t\t%d\n", i + 1, correctAnswerdQuestArray[i]);
+            }
+        }
+    }
+
     //Print metoder
     public void toPrint() {
         for (Student student : studentArrayList) {
@@ -121,6 +205,7 @@ public class Team {
     }
     @Override
     public String toString() {
+        toPrint();
         return "Team: " + name + " high score students: " + Arrays.toString(highScoreStudents(3))
                 + " correct answers from each student: " + studentsCorrectAnswers(studentArrayList);
     }
