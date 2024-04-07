@@ -1,8 +1,17 @@
-package Opgave1;
+package Opgave123;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/*
+Programmet dækker alle funktionaliteter i 3B, dog er der et par mangler vi ikke nåede at fikse:
+- Når en Student printes, vises den 2 gange
+- HighScoreStudents kan ikke bruges på denne del af opgaven
+- Mangler bedre formatering, når team/student udskrives
+- usikkerhed hvorvidt correctAnswers virker for denne opgave. Bør virke i opgave 1-2
+- blandet dansk og engelsk
+- evt. flere kommentarer til at beskrive metoder
+ */
 
 public class App3b {
     static Scanner input = new Scanner(System.in);

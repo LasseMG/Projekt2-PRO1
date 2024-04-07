@@ -1,6 +1,5 @@
-package Opgave1;
+package Opgave123;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 

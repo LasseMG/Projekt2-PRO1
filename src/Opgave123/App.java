@@ -1,4 +1,4 @@
-package Opgave1;
+package Opgave123;
 
 public class App {
     public static void main(String[] args) {
