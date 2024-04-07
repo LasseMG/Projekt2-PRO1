@@ -13,6 +13,7 @@ public class Student {
     private double gradeAverage;
 
     private int correctAnswers;
+    private int gradeTotal;
 
     //Constructor for student
     public Student(String name, boolean active, int[] grades) {
@@ -62,11 +63,10 @@ public class Student {
 
     //Gennemsnit af grades
     public double averageGradeCalc(int[] grades) {
-
         for (int grade : grades) {
             this.gradeAverage += grade;
         }
-        gradeAverage /= grades.length;
+        this.gradeAverage = this.gradeAverage / (double) grades.length;
         return gradeAverage;
     }
 

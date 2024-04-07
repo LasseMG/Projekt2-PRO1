@@ -1,4 +1,5 @@
 package Opgave1;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -10,6 +11,14 @@ public class App3b {
     Som start udskrives valgmuligheder. Herefter kører menuSelect, som opfanger hvad brugeren vil.
      */
     public static void main(String[] args) {
+        boolean stop = false;
+        while (!stop) {
+            menu();
+            stop = menuSelect(stop);
+        }
+    }
+
+    public static void menu() {
         System.out.println("MENU");
         System.out.println("1: Create team");
         System.out.println("2: Create student");
@@ -17,13 +26,12 @@ public class App3b {
         System.out.println("4: Show team info and results");
         System.out.println("5: Show info and results for all teams");
         System.out.println("6: Exit program");
-        menuSelect();
     }
 
     /*
-    Fungerer som en menu, hvor hvert tal 1-6 kalder en metode eller stopper programmet.
+    Fungerer som en menu, hvor hvert tal 1-6 kalder en metode.
      */
-    public static void menuSelect() {
+    public static boolean menuSelect(boolean stop) {
         int userInput = input.nextInt();
 
         if (userInput == 1) {
@@ -32,16 +40,18 @@ public class App3b {
             Team team = null; //Laver et tomt objekt, som kan blive udfyldt
             createStudent(team); //Smid den student i det team, som dannes i en metode senere
         } else if (userInput == 3) {
-            //Metode 3 (3.B)
+            showStudentInfo(students);
         } else if (userInput == 4) {
             //Metode 4 (3.B)
         } else if (userInput == 5) {
             //Metode 5 (3.B)
         } else if (userInput == 6) {
             //Metode 6 (3.B)
+            stop = true;
         } else {
-            System.out.println("Invalid input.");
+            System.out.println("Ugyldigt input.");
         }
+        return stop;
     }
 
     /*
@@ -57,7 +67,7 @@ public class App3b {
         } else if (Objects.equals(userInput, "n")) {
             //Kør
         } else {
-            System.out.println("Invalid input.");
+            System.out.println("Ugyldigt input.");
         }
     }
 
@@ -87,6 +97,8 @@ public class App3b {
         return team;
     }
 
+    //ArrayList til at holde på students
+    private static ArrayList<Student> students = new ArrayList<>();
     /*
     createStudent metode. Navn, aktiv, antal karakterer, og hvilke karakterer.
     Ud fra dette, smides informationen i en constructor, som danner den nye studerende.
@@ -95,7 +107,7 @@ public class App3b {
         System.out.println("Navn på studerende?");
         input.nextLine();
         String studentName = input.nextLine();
-        System.out.println("Er den studerende aktiv?");
+        System.out.println("Er den studerende aktiv? (true/false)");
         boolean studentActive = input.nextBoolean();
         System.out.println("Hvor mange karakterer har den studerende fået?");
         int numberOfGrades = input.nextInt();
@@ -106,11 +118,13 @@ public class App3b {
         }
 
         Student student = new Student(studentName, studentActive, studentGrades);
+        students.add(student); //Tilføj studerende til ArrayList når oprettet
 
         /*
         Herefter spørges der om, hvilket team student skal i. Den viser mulige teams (navnet på det team, vi har lavet ovenfor),
         og indtaster man navnet på det team, vil student tilføjes hertil. Derefter kommer en bekræftelse.
         Indtaster man et navn på et team som ikke eksisterer, udskriver den en fejlmeddelelse.
+        Sker kun hvis der er oprettet et team, altså !null.
          */
         if (team != null) {
             System.out.println("Til hvilket team skal den studerende tilføjes? (" + team.getName() + ")");
@@ -122,7 +136,42 @@ public class App3b {
                 System.out.println("Fejl: Det indtastede holdnavn matcher ikke det angivne hold.");
             }
         }
-        System.out.println(team);
+
+        //Print team, hvis der er et, ellers kun student, hvis der ikke er et team. Blot for at undgå,
+        //der udskrives null efter der er oprettet en student, men ikke et team.
+        if (team == null) {
+            System.out.println(student);
+        } else {
+            System.out.println(team);
+        }
         return student;
+    }
+
+    /*
+    Første del af denne metode viser en liste over student objekter, som man kan vælge imellem.
+    I anden del kan man indtaste et tal, som henviser til et index for et student objekt i
+    student ArrayList. Derefter printes student objekt via. toString metoden.
+     */
+    public static void showStudentInfo(ArrayList<Student> students) {
+        if (students.isEmpty()) {
+            System.out.println("Ingen studerende eller teams at tilgå endnu.");
+        } else {
+            System.out.println("Hvilken studerendes information vil du se?");
+            for (int i = 0; i < students.size(); i++) {
+                System.out.println((i + 1) + ". " + students.get(i).getName());
+            }
+        }
+
+        //Anden del af metoden
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast nummeret på den studerende, du vil se information om.");
+        int selectedStudentIndex = input.nextInt();
+
+        if (selectedStudentIndex < 1 || selectedStudentIndex > students.size()) {
+            System.out.println("Ugyldigt valg.");
+        } else {
+            Student selectedStudent = students.get(selectedStudentIndex - 1);
+            System.out.println(selectedStudent);
+        }
     }
 }
