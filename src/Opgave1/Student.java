@@ -63,10 +63,15 @@ public class Student {
 
     //Gennemsnit af grades
     public double averageGradeCalc(int[] grades) {
+        double gradeAverage = 0;
+
         for (int grade : grades) {
-            this.gradeAverage += grade;
+            gradeAverage += grade;
         }
-        this.gradeAverage = this.gradeAverage / (double) grades.length;
+
+        if (grades.length != 0) {
+            gradeAverage /= grades.length;
+        }
         return gradeAverage;
     }
 

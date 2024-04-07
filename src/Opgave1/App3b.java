@@ -42,7 +42,7 @@ public class App3b {
         } else if (userInput == 3) {
             showStudentInfo(students);
         } else if (userInput == 4) {
-            //Metode 4 (3.B)
+            showTeamInfo(teams);
         } else if (userInput == 5) {
             //Metode 5 (3.B)
         } else if (userInput == 6) {
@@ -71,6 +71,8 @@ public class App3b {
         }
     }
 
+    //ArrayList til at holde på teams
+    private static ArrayList<Team> teams = new ArrayList<>();
     /*
     createTeam metode. Prompter navn, værelse, rum, samt hvor mange students. Er der et antal students,
     kører createStudents det antal gange, så der laves så mange studerende.
@@ -94,6 +96,7 @@ public class App3b {
             Student student = createStudent(team);
             team.addStudent(student);
         }
+        teams.add(team);
         return team;
     }
 
@@ -137,13 +140,13 @@ public class App3b {
             }
         }
 
-        //Print team, hvis der er et, ellers kun student, hvis der ikke er et team. Blot for at undgå,
-        //der udskrives null efter der er oprettet en student, men ikke et team.
-        if (team == null) {
-            System.out.println(student);
-        } else {
-            System.out.println(team);
-        }
+//        //Print team, hvis der er et, ellers kun student, hvis der ikke er et team. Blot for at undgå,
+//        //der udskrives null efter der er oprettet en student, men ikke et team.
+//        if (team == null) {
+//            System.out.println(student);
+//        } else {
+//            System.out.println(team);
+//        }
         return student;
     }
 
@@ -154,7 +157,7 @@ public class App3b {
      */
     public static void showStudentInfo(ArrayList<Student> students) {
         if (students.isEmpty()) {
-            System.out.println("Ingen studerende eller teams at tilgå endnu.");
+            System.out.println("Ingen studerende at tilgå endnu.");
         } else {
             System.out.println("Hvilken studerendes information vil du se?");
             for (int i = 0; i < students.size(); i++) {
@@ -172,6 +175,31 @@ public class App3b {
         } else {
             Student selectedStudent = students.get(selectedStudentIndex - 1);
             System.out.println(selectedStudent);
+        }
+    }
+
+    /*
+    Samme metode/strategi som ved metoden til at vise student info.
+     */
+    public static void showTeamInfo(ArrayList<Team> teams) {
+        if (teams.isEmpty()) {
+            System.out.println("Ingen teams at tilgå endnu.");
+        } else {
+            System.out.println("Hvilket teams information vil du se?");
+            for (int i = 0; i < teams.size(); i++) {
+                System.out.println((i + 1) + ". " + teams.get(i).getName());
+            }
+        }
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indtast nummeret på det team, du vil se information om.");
+        int selectedTeamIndex = input.nextInt();
+
+        if (selectedTeamIndex < 1 || selectedTeamIndex > students.size()) {
+            System.out.println("Ugyldigt valg.");
+        } else {
+            Team selectedTeam = teams.get(selectedTeamIndex - 1);
+            System.out.println(selectedTeam);
         }
     }
 }
