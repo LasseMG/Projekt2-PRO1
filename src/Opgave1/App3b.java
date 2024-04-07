@@ -44,9 +44,8 @@ public class App3b {
         } else if (userInput == 4) {
             showTeamInfo(teams);
         } else if (userInput == 5) {
-            //Metode 5 (3.B)
+            showAllTeamsInfo(teams);
         } else if (userInput == 6) {
-            //Metode 6 (3.B)
             stop = true;
         } else {
             System.out.println("Ugyldigt input.");
@@ -200,6 +199,12 @@ public class App3b {
         } else {
             Team selectedTeam = teams.get(selectedTeamIndex - 1);
             System.out.println(selectedTeam);
+        }
+    }
+
+    public static void showAllTeamsInfo(ArrayList<Team> teams) {
+        for (Team team : teams) {
+            System.out.println(team);
         }
     }
 }
